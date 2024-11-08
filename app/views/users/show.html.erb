@@ -1,0 +1,57 @@
+<div class="container">
+  <%=render 'layouts/list',user: @user, post:Post.new%>
+  <div>
+    <h2>投稿一覧</h2>
+    <table>
+      <thead>
+        <tr>
+          <th></th>
+          <th>題名</th>
+          <th>内容</th>
+          <th confirm="3"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @posts.each do |post|%>
+        <tr>
+          <td>
+            <%=link_to (post.user) do%>
+            <%=image_tag post.user.get_profile_image(50,50)%>
+            <%end%>
+          </td>
+          <td><%=link_to post.title,post%></td>
+          <td><%=post.content%></td>
+        </tr>
+        <%end%>
+      </tbody>
+    </table>
+    
+<%=link_to 'プロフィール編集',edit_user_path(@user)%>
+<%=link_to '退会する',user_path(@user),method: :delete, data: {confirm: '本当に退会しますか？'}%>
+
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

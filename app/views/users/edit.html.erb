@@ -1,0 +1,53 @@
+<div class="container">
+  <h2>利用者の詳細について</h2>
+  
+   <% if @user.errors.any? %>
+        <div class="alert alert-danger">
+          <%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:
+          <ul>
+            <% @user.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+
+<%=form_with model: @user,local: true do |f|%>
+<div class="form-group">
+  <%=f.label :name,"氏名"%>
+  <%=f.text_field :name %>
+</div>
+<div class="form-group">
+  <%=f.label :profile_image,"紹介画像"%>
+  <%=f.file_field :profile_image%>
+</div>
+<div class="form-group">
+  <%= f.label :introduction,"説明文" %>
+  <%= f.text_area :introduction%>
+</div>
+<div class="form-group">
+  <%=f.submit "更新" %>
+</div>
+<%end%>
+  <%=link_to '戻る',user_path(@user)%>
+  
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
