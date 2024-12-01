@@ -14,7 +14,7 @@
 
   <body>
     <header>
-      <nav
+      <nav>
         <% if user_signed_in? %>
         <li>
         <%=link_to  'ホーム',user_path(current_user)%>
@@ -48,6 +48,7 @@
     
     
      <p id="notice"><%= notice %></p>
+     <%= render 'searches/form' %>
     <%= yield %>
   </body>
 </html>
