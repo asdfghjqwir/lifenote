@@ -1,0 +1,26 @@
+<% if @model == 'user' %>
+  <h3>Users search for "<%= @content %>"</h3>
+  <% if @users.present? %>
+    <ul>
+      <% @users.each do |user| %>
+        <li><%= user.name %></li>
+      <% end %>
+    </ul>
+  <% else %>
+    <p>No users found.</p>
+  <% end %>
+<% elsif @model == 'post' %>
+  <h3>Posts search for "<%= @content %>"</h3>
+  <% if @posts.present? %>
+    <ul>
+      <% @posts.each do |post| %>
+        <li>
+          <strong><%= post.title %></strong>
+          <p><%= post.content %></p>
+        </li>
+      <% end %>
+    </ul>
+  <% else %>
+    <p>No posts found.</p>
+  <% end %>
+<% end %>

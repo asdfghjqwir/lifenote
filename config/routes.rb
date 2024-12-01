@@ -5,4 +5,5 @@ Rails.application.routes.draw do
   get  'home/about', to: 'homes#about',as: 'about'
   resources :posts,only:[:index,:show,:create,:edit,:update,:destroy]
   resources :users, only:[:index,:show, :edit,:update]
+   get '/search', to: 'searches#search'
 end
