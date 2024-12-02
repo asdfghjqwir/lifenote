@@ -9,7 +9,8 @@ class User < ApplicationRecord
         validates :name,presence:true,length: {maximum:50},uniqueness: true
         validates :introduction,length: {maximum:100}
         
-         has_many :posts, dependent: :destroy
+       has_many :posts, dependent: :destroy
+       has_many :post_comments, dependent: :destroy
        has_one_attached :profile_image
        
      def get_profile_image(width, height)
