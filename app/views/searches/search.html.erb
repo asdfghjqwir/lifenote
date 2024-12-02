@@ -1,9 +1,11 @@
+<h1>検索結果</h1>
+
 <% if @model == 'user' %>
   <h3>Users search for "<%= @content %>"</h3>
-  <% if @users.present? %>
+  <% if @results.present? %>
     <ul>
-      <% @users.each do |user| %>
-        <li><%= user.name %></li>
+      <% @results.each do |user| %>
+        <li><%= link_to user.name, user_path(user) %></li>
       <% end %>
     </ul>
   <% else %>
@@ -11,11 +13,11 @@
   <% end %>
 <% elsif @model == 'post' %>
   <h3>Posts search for "<%= @content %>"</h3>
-  <% if @posts.present? %>
+  <% if @results.present? %>
     <ul>
-      <% @posts.each do |post| %>
+      <% @results.each do |post| %>
         <li>
-          <strong><%= post.title %></strong>
+          <strong><%= link_to post.title, post_path(post) %></strong>
           <p><%= post.content %></p>
         </li>
       <% end %>
@@ -24,3 +26,4 @@
     <p>No posts found.</p>
   <% end %>
 <% end %>
+

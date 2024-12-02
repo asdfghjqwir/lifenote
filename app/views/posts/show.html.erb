@@ -18,13 +18,41 @@
         <%=link_to '編集',edit_post_path(@post)%>
         <%=link_to '削除',post_path(@post),method: :delete, data:{confirm:'本当に削除しますか？'}%>
         <%end%>
-    <%=link_to '戻る',posts_path%>
       </tr>
     </table>
+
+    <%=link_to '戻る',posts_path%>
+
+    <h3>コメントを投稿する</h3>
+    <%=form_with(model: [@post,PostComment.new],local:true) do |f|%>
+      <%=f.text_area :comment,rows:'5',placeholder:"コメントをここに"%>
+      <%=f.submit "送信"%>
+      <%end%>
+
+<table>
+<tbody>
+<% @post.post_comments.each do |post_comment|%>
+  <tr>
+  <td>
+  <%=link_to user_path(post_comment.user) do%>
+      <%= image_tag post_comment.user.get_profile_image(100, 100) %>
+
+    <%=post_comment.user.name%>
+    <%end%>
+    </td>
+    <td><%=post_comment.comment%></td>
+    <td>
+    <% if post_comment.user==current_user%>
+    <%=link_to "削除" ,post_post_comment_path(@post, post_comment),method: :delete%>
+    <%end%>
+    </td>
+    </tr>
+    <%end%>
+    </tbody>
+    </table>
+
   </div>
 </div>
-
-
 
 
 
