@@ -8,47 +8,39 @@
 
    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
-
-
   </head>
 
   <body>
     <header>
       <nav>
         <% if user_signed_in? %>
-        <li>
-        <%=link_to  'ホーム',user_path(current_user)%>
-         </li>
-         <li>
-         <%=link_to 'ユーザー', users_path%>
-        </li>
-        <li>
-          <%=link_to '投稿',posts_path%>
-        </li>
-        <li>
-        <%=link_to 'ログアウト',destroy_user_session_path,method: :delete%>
-        </li>
-        <%else%>
-          <li>
-         <%=link_to 'ホーム', root_path%>
-        </li>
-        <li>
-          <%=link_to 'このサイトについて',about_path%>
-        </li>
-        <li>
-        <%=link_to '新規登録', new_user_registration_path%> 
-        </li>
-        <li>
-          <%=link_to 'ログイン',new_user_session_path%>
-        </li>
-       <%end%>
+          <ul>
+            <li><%= link_to 'ホーム', user_path(current_user) %></li>
+            <li><%= link_to 'ユーザー', users_path %></li>
+            <li><%= link_to '投稿', posts_path %></li>
+            <li><%= link_to 'ログアウト', destroy_user_session_path, method: :delete %></li>
+            <% if session[:admin_id] %>
+              <li><%= link_to '管理者ダッシュボード', admin_dashboard_path %></li>
+              <li><%= link_to '管理者ログアウト', admin_logout_path, method: :delete, data: { confirm: 'ログアウトしますか？' } %></li>
+            <% else %>
+              <li><%= link_to '管理者ログイン',admin_login_path %>
+            <% end %>
+          </ul>
+        <% else %>
+          <ul>
+            <li><%= link_to 'ホーム', root_path %></li>
+            <li><%= link_to 'このサイトについて', about_path %></li>
+            <li><%= link_to '新規登録', new_user_registration_path %></li>
+            <li><%= link_to 'ログイン', new_user_session_path %></li>
+          </ul>
+        <% end %>
       </nav>
+      <%= render 'searches/form' %>
     </header>
-    
-    
-    
-     <p id="notice"><%= notice %></p>
-     <%= render 'searches/form' %>
-    <%= yield %>
+
+    <main>
+      <p id="notice"><%= notice %></p>
+      <%= yield %>
+    </main>
   </body>
 </html>

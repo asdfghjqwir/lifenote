@@ -1,0 +1,6 @@
+<h1>ユーザー詳細</h1>
+<p> 名前: <%=@user.name%></p>
+<p> メールアドレス：<%=@user.email%></p>
+<p>紹介文: <%=@user.introduction%></p>
+<%=link_to '削除する',delete_admin_user_path(@user), method: :patch, data:{confirm: "本当に退会させますか？"}%>
+<%=link_to '戻る',admin_dashboard_path%>
