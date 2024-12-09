@@ -1,13 +1,13 @@
 <% if user_signed_in? %>
   <%= form_with url: search_path, method: :get, local: true do |f| %>
-    <div>
-      <%= f.label :model, '検索対象' %>
-      <%= f.select :model, [['ユーザー', 'user'], ['投稿', 'post']] %>
+    <div class="mb-3">
+      <%= f.label :model, '検索対象',class: 'form-label' %>
+      <%= f.select :model, [['ユーザー', 'user'], ['投稿', 'post']],{},class: 'form-select' %>
     </div>
-    <div>
-      <%= f.label :content, 'キーワード' %>
-      <%= f.text_field :content %>
+    <div class="mb-3">
+      <%= f.label :content, 'キーワード',class:'form-label' %>
+      <%= f.text_field :content, class: 'form-control' %>
     </div>
-    <%= f.submit '検索' %>
+    <%= f.submit '検索',class:'btn btn-primary' %>
   <% end %>
 <% end %>

@@ -1,11 +1,13 @@
-<h1>検索結果</h1>
-
+<h1 class="mb-4">検索結果</h1>
+<div class="container">
 <% if @model == 'user' %>
   <h3>Users search for "<%= @content %>"</h3>
   <% if @results.present? %>
-    <ul>
+    <ul class="list-group">
       <% @results.each do |user| %>
-        <li><%= link_to user.name, user_path(user) %></li>
+        <li class="list-group-item">
+        <%= link_to user.name, user_path(user) %>
+        </li>
       <% end %>
     </ul>
   <% else %>
@@ -14,9 +16,9 @@
 <% elsif @model == 'post' %>
   <h3>Posts search for "<%= @content %>"</h3>
   <% if @results.present? %>
-    <ul>
+    <ul class="list-group">
       <% @results.each do |post| %>
-        <li>
+        <li class="list-group-item">
           <strong><%= link_to post.title, post_path(post) %></strong>
           <p><%= post.content %></p>
         </li>
@@ -26,4 +28,5 @@
     <p>No posts found.</p>
   <% end %>
 <% end %>
+</div>
 
