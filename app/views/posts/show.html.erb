@@ -2,55 +2,58 @@
   
   <%=render 'layouts/list',user: @post.user,post: Post.new%>
   
-  <div>
+  <div class="mt-4">
     <h2>投稿の詳細について</h2>
-    <table>
+    <table class="table table-striped">
       <tr>
         <td>
           <%=link_to (@post.user) do%>
           <%=image_tag @post.user.get_profile_image(100,100)%><br>
-          <%=@post.user.name%>
           <%end%>
         </td>
-        <td><%=link_to @post.title,@post%></td>
+        <td><%=@post.user.name%></td>
+        <td><%=@post.title%></td>
         <td><%=@post.content%></td>
         <% if @post.user==current_user%>
-        <%=link_to '編集',edit_post_path(@post)%>
-        <%=link_to '削除',post_path(@post),method: :delete, data:{confirm:'本当に削除しますか？'}%>
+        <td>
+        <%=link_to '編集',edit_post_path(@post),class: 'btn btn-sm btn-secondary'%>
+        <%=link_to '削除',post_path(@post),method: :delete, data:{confirm:'本当に削除しますか？'},class: 'btn btn-sm btn-danger ms-2'%>
+        <%=link_to '戻る',posts_path,class: 'btn  btn-sm btn-secondary ms-2'%>
+        </td>
         <%end%>
       </tr>
     </table>
 
-    <%=link_to '戻る',posts_path%>
+   
 
     <h3>コメントを投稿する</h3>
     <%=form_with(model: [@post,PostComment.new],local:true) do |f|%>
-      <%=f.text_area :comment,rows:'5',placeholder:"コメントをここに"%>
-      <%=f.submit "送信"%>
+      <div class="mb-3">
+      <%=f.text_area :comment,rows:'5',placeholder:"コメントをここに",class: 'form-control'%>
+      <%=f.submit "送信",class: 'btn btn-primary mb-3'%>
+      </div>
       <%end%>
 
-<table>
+<table class="table table-striped">
 <tbody>
 <% @post.post_comments.each do |post_comment|%>
   <tr>
   <td>
   <%=link_to user_path(post_comment.user) do%>
-      <%= image_tag post_comment.user.get_profile_image(100, 100) %>
-
-    <%=post_comment.user.name%>
+     <%= image_tag post_comment.user.get_profile_image(100, 100) %>
+     <%=post_comment.user.name%>
     <%end%>
     </td>
     <td><%=post_comment.comment%></td>
     <td>
     <% if post_comment.user==current_user%>
-    <%=link_to "削除" ,post_post_comment_path(@post, post_comment),method: :delete%>
+    <%=link_to "削除" ,post_post_comment_path(@post, post_comment),method: :delete,class: 'btn-sm btn-danger'%>
     <%end%>
     </td>
     </tr>
     <%end%>
     </tbody>
     </table>
-
   </div>
 </div>
 

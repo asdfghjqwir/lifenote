@@ -1,11 +1,12 @@
 <div class="container">
-  <h1>lifeNoteにようこそ!</h1>  
+  <h1 class="mb-4">lifeNoteにようこそ!</h1>  
   <p>日々の出来事をシェアして、みんなと交流しよう</p>
   <p>LifeNoteは、あなたの日常をみんなと共有できる日記共有SNSです。</p>
 
-<%=link_to 'Log in',new_user_registration_path%>
-<%=link_to 'Sign up',new_user_session_path%>
-
+<div class="mb-3">  
+<%=link_to 'Log in',new_user_session_path,class: 'btn btn-primary me-2'%>
+<%=link_to 'Sign up',new_user_registration_path,class: 'btn btn-success'%>
+</div>
 </div>
     
     

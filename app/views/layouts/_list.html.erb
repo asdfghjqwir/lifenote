@@ -1,29 +1,32 @@
-<h2>私の紹介</h2>
-<%=image_tag user.get_profile_image(100,100)%>
-<table>
+<h2 class="mb-3">プロフィール</h2>
+<div class="mb-3">
+<%=image_tag user.get_profile_image(100,100), class: "rounded"%>
+</div>
+
+<table class="table table-striped table-hover mb-4">
  <tbody>
   <tr>
-    <th>名前</th>
+    <th scope="row">名前</th>
     <th><%=user.name%></th>
   </tr>
   <tr>
-    <th>説明文</th>
+    <th scope="row">説明文</th>
   <th><%=user.introduction%></th>
  </tr>
  </tbody>
 </table>
 
-<h2>新規投稿</h2>
+<h2 class="mb-3">新規投稿</h2>
 <%=form_with model: post,local: true do |f|%>
-<div class="form-group">
- <%=f.label :title,"題名"%>
- <%=f.text_field :title%>
+<div class="mb-3">
+ <%=f.label :title,"題名", class: 'form-label'%>
+ <%=f.text_field :title,  class: 'form-control'%>
 </div>
-<div class="form-group">
-  <%=f.label :content,"内容"%>
-  <%=f.text_area :content%>
+<div class="mb-3">
+  <%=f.label :content,"内容",class: 'form-label'%>
+  <%=f.text_area :content, class: 'form-control'%>
 </div>
-<div class="form-group">
-  <%=f.submit '投稿'%>
+<div class="mb-3">
+  <%=f.submit '投稿',class: 'btn btn-primary'%>
 </div>
 <%end%>

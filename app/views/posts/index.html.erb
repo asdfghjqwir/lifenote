@@ -1,6 +1,7 @@
 <div class="container">
   
   <% if @post.errors.any?%>
+  <div class="alert alert-danger">
     <h2><%= pluralize(@post.errors.count, "error") %> prohibited this book from being saved:</h2>
     <ul>
        <% @post.errors.full_messages.each do |message| %>
@@ -11,9 +12,9 @@
   
   <%=render 'layouts/list',user: current_user, post: Post.new%>
   
-  <div>
+  <div class="mb-4">
     <h2>投稿</h2>
-    <table>
+    <table class="table table-striped table-hover">
       <thead>
         <tr>
           <th></th>
@@ -30,7 +31,7 @@
             <%=image_tag post.user.get_profile_image(50,50)%>
             <%end%>
           </td>
-          <td><%=link_to post.title, post_path(post)%></td>
+          <td><%=post.title%></td>
           <td><%=post.content%></td>
         </tr>
         <%end%>

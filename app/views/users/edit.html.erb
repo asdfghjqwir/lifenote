@@ -1,5 +1,5 @@
 <div class="container">
-  <h2>あなたについて</h2>
+  <h2>プロフィール</h2>
   
    <% if @user.errors.any? %>
         <div class="alert alert-danger">
@@ -13,24 +13,23 @@
       <% end %>
 
 <%=form_with model: @user,local: true do |f|%>
-<div class="form-group">
-  <%=f.label :name,"氏名"%>
-  <%=f.text_field :name %>
+<div class="mb-3">
+  <%=f.label :name,"氏名",class: 'form-label'%>
+  <%=f.text_field :name,class: 'form-control' %>
 </div>
-<div class="form-group">
-  <%=f.label :profile_image,"紹介画像"%>
-  <%=f.file_field :profile_image%>
+<div class="mb-3">
+  <%=f.label :profile_image,"紹介画像",class:'form-label'%>
+  <%=f.file_field :profile_image,class: 'form-control'%>
 </div>
-<div class="form-group">
-  <%= f.label :introduction,"説明文" %>
-  <%= f.text_area :introduction%>
+<div class="mb-3">
+  <%= f.label :introduction,"説明文",class:'form-label' %>
+  <%= f.text_area :introduction,class:'form-control'%>
 </div>
-<div class="form-group">
-  <%=f.submit "更新" %>
+<div class="mb-3">
+  <%=f.submit "更新",class: 'btn btn-primary me-2' %>
+  <%=link_to '戻る',user_path(@user),class: 'btn btn-secondary'%>
 </div>
 <%end%>
-  <%=link_to '戻る',user_path(@user)%>
-  
 </div>
 
 

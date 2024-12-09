@@ -1,8 +1,8 @@
 <div class="container">
   <%=render 'layouts/list',user: current_user, post: Post.new%>
-  <div>
+  <div class="mb-4">
     <h2>ユーザー</h2>
-    <table>
+    <table class="table table-striped table-hover">
       <thead>
         <tr>
           <th>画像</th>
@@ -15,7 +15,7 @@
         <tr>
           <td><%=image_tag user.get_profile_image(50,50)%></td>
           <td><%=user.name%></td>
-          <td><%=link_to '詳細へ',user_path(user)%></td>
+          <td><%=link_to '詳細へ',user_path(user),class: 'btn btn-sm btn-secondary'%></td>
         </tr>
         <%end%>
       </tbody>
