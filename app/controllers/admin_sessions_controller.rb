@@ -6,17 +6,17 @@ class AdminSessionsController < ApplicationController
     admin = Admin.find_by(email: params[:email])
     if admin&.authenticate(params[:password])
       session[:admin_id] = admin.id
-      flash[:notice] = "ログインしました"
+      flash[:notice] = "ログインしました。"
       redirect_to admin_dashboard_path
     else
-      flash.now[:alert] = "ログインに失敗しました"
+      flash.now[:alert] = "ログインに失敗しました。"
       render :new
     end
   end
 
   def destroy
     session[:admin_id] = nil
-    flash[:notice] = "ログアウトしました"
+    flash[:notice] = "ログアウトしました。"
     redirect_to admin_login_path
   end
 end

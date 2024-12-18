@@ -1,29 +1,32 @@
-<h2 class="mb-3">プロフィール</h2>
-<div class="mb-3">
-<%=image_tag user.get_profile_image(100,100), class: "rounded"%>
-</div>
-
-<table class="table table-striped table-hover mb-4">
- <tbody>
+<div class="mb-4">
+<h2>あなたのプロフィール</h2>
+<table class="table table-striped table-hover">
+   <thead>
   <tr>
-    <th scope="row">名前</th>
-    <th><%=user.name%></th>
+  <th>画像</th>
+  <th>名前</th>
+  <th>一言</th>
   </tr>
+   </thead>
+  <tbody>
   <tr>
-    <th scope="row">説明文</th>
-  <th><%=user.introduction%></th>
- </tr>
- </tbody>
-</table>
+  <td><%=image_tag user.get_profile_image(50,50)%></td>
+  <td><%=user.name%></td>
+  <td><%=user.introduction%></td>
+  <td><%=link_to '編集',edit_user_path(@user),class: 'btn btn-sm btn-primary'%></td>
+  </tr>
+  </tbody>
+  </table>
+</div>
 
 <h2 class="mb-3">新規投稿</h2>
 <%=form_with model: post,local: true do |f|%>
 <div class="mb-3">
- <%=f.label :title,"題名", class: 'form-label'%>
+ <%=f.label :title,"タイトル", class: 'form-label'%>
  <%=f.text_field :title,  class: 'form-control'%>
 </div>
 <div class="mb-3">
-  <%=f.label :content,"内容",class: 'form-label'%>
+  <%=f.label :content,"コメント",class: 'form-label'%>
   <%=f.text_area :content, class: 'form-control'%>
 </div>
 <div class="mb-3">

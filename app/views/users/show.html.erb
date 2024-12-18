@@ -1,35 +1,39 @@
 <div class="container">
+<% if @user.errors.any? %>
+<div class="alert alert-danger">
+  <%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:
+  <ul>
+    <% @user.errors.full_messages.each do |message| %>
+      <li><%= message %></li>
+    <% end %>
+  </ul>
+</div>
+<% end %>
+
   <%=render 'layouts/list',user: @user, post:Post.new%>
-  <div class="mt-4">
-    <h2>投稿一覧</h2>
+  
+  <div class="mb-4">
+    <h2>あなたの投稿</h2>
     <table class="table table-striped table-hover"> 
       <thead>
         <tr>
           <th></th>
-          <th>題名</th>
-          <th>内容</th>
-          <th confirm="3"></th>
+          <th></th>
+          <th></th>
+          <th></th>
         </tr>
       </thead>
       <tbody>
         <% @posts.each do |post|%>
         <tr>
-          <td>
-            <%=link_to (post.user) do%>
-            <%=image_tag post.user.get_profile_image(50,50)%>
-            <%end%>
-          </td>
+          <td><%=image_tag post.user.get_profile_image(50,50)%></td>
           <td><%=post.title%></td>
           <td><%=post.content%></td>
+            <td><%=link_to '詳細へ',post_path(post),class: 'btn btn-sm btn-secondary'%></td>
         </tr>
         <%end%>
       </tbody>
     </table>
-
-  <div class="mb-3">
-<%=link_to 'プロフィール編集',edit_user_path(@user),class: 'btn btn-primary me-2'%>
-<%=link_to '退会する',user_path(@user),method: :delete, data: {confirm: '本当に退会しますか？'},class: 'btn btn-danger'%>
-  </div>
   </div>
 </div>
 

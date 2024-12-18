@@ -2,6 +2,7 @@
 <div class="container">
 <%= form_with model: @user, url: user_session_path do |f| %>
 <%= render "devise/shared/error_messages", resource: resource %>
+
 <div class="mb-3">
     <%= f.label :email,'メールアドレス' ,class: 'form-label'%>
     <%= f.email_field :email, class: 'form-control', autofocus: true, autocomplete: "email" %>

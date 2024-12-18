@@ -20,6 +20,7 @@ class PostsController < ApplicationController
       flash[:notice] = "投稿が保存されました。"
       redirect_to post_path(@post)
     else
+     flash[:alert] = "投稿の保存に失敗しました。"
       @posts = Post.all
       @user = current_user
       render :index
@@ -28,6 +29,7 @@ class PostsController < ApplicationController
 
   def edit
     @post = Post.find(params[:id])
+     flash[:alert] = "編集する権限がありません。"
     redirect_to posts_path unless @post.user == current_user
   end
 
@@ -37,6 +39,7 @@ class PostsController < ApplicationController
       flash[:notice] = "投稿が更新されました。"
       redirect_to post_path(@post)
     else
+      flash[:alert] = "投稿の更新に失敗しました。"
       render :edit
     end
   end
@@ -46,6 +49,8 @@ class PostsController < ApplicationController
     if @post.user == current_user
       @post.destroy
       flash[:notice] = "投稿が削除されました。"
+    else
+      flash[:alert] = "ユーザーの削除に失敗しました"
     end
     redirect_to posts_path
   end
@@ -59,6 +64,7 @@ class PostsController < ApplicationController
   def ensure_correct_user
     @post = Post.find(params[:id])
     unless @post.user == current_user
+      flash[:alert] = "権限がありません。"
       redirect_to posts_path
     end
   end

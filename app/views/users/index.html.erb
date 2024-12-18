@@ -1,13 +1,24 @@
 <div class="container">
+<% if @user.errors.any? %>
+<div class="alert alert-danger">
+  <%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:
+  <ul>
+    <% @user.errors.full_messages.each do |message| %>
+      <li><%= message %></li>
+    <% end %>
+  </ul>
+</div>
+<% end %>
+
   <%=render 'layouts/list',user: current_user, post: Post.new%>
   <div class="mb-4">
-    <h2>ユーザー</h2>
+    <h2>ユーザーの一覧</h2>
     <table class="table table-striped table-hover">
       <thead>
         <tr>
-          <th>画像</th>
-          <th>名前</th>
-          <th colspan="3"></th>
+          <th></th>
+          <th></th>
+          <th></th>
         </tr>
       </thead>
       <tbody>

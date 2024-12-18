@@ -1,27 +1,40 @@
 <div class="container">
+<% if @post.errors.any?%>
+  <div class="alert alert-danger">
+    <h2><%= pluralize(@post.errors.count, "error") %> prohibited this book from being saved:</h2>
+    <ul>
+       <% @post.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+    <%end%>
   
   <%=render 'layouts/list',user: @post.user,post: Post.new%>
   
   <div class="mt-4">
-    <h2>投稿の詳細について</h2>
+    <h2>投稿の詳細</h2>
     <table class="table table-striped">
+    <thead>
       <tr>
-        <td>
-          <%=link_to (@post.user) do%>
-          <%=image_tag @post.user.get_profile_image(100,100)%><br>
-          <%end%>
-        </td>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <td><%=image_tag @post.user.get_profile_image(50,50)%></td>
         <td><%=@post.user.name%></td>
         <td><%=@post.title%></td>
         <td><%=@post.content%></td>
         <% if @post.user==current_user%>
         <td>
         <%=link_to '編集',edit_post_path(@post),class: 'btn btn-sm btn-secondary'%>
-        <%=link_to '削除',post_path(@post),method: :delete, data:{confirm:'本当に削除しますか？'},class: 'btn btn-sm btn-danger ms-2'%>
-        <%=link_to '戻る',posts_path,class: 'btn  btn-sm btn-secondary ms-2'%>
         </td>
         <%end%>
       </tr>
+      </tbody>
     </table>
 
    
@@ -30,24 +43,33 @@
     <%=form_with(model: [@post,PostComment.new],local:true) do |f|%>
       <div class="mb-3">
       <%=f.text_area :comment,rows:'5',placeholder:"コメントをここに",class: 'form-control'%>
-      <%=f.submit "送信",class: 'btn btn-primary mb-3'%>
+      </div>
+      <div class="mb-3">
+      <%=f.submit "送信",class: 'btn btn-primary'%>
       </div>
       <%end%>
 
+      <h3>コメントした人</h3> 
 <table class="table table-striped">
-<tbody>
+    <thead>
+    <tr>
+    <th></th>
+    <th></th>
+    <th></th>
+    </tr>
+   </thead>
+   <tbody>
 <% @post.post_comments.each do |post_comment|%>
   <tr>
-  <td>
-  <%=link_to user_path(post_comment.user) do%>
-     <%= image_tag post_comment.user.get_profile_image(100, 100) %>
+   <td><%= image_tag post_comment.user.get_profile_image(50, 50) %></td>
+   <td> <%=link_to user_path(post_comment.user) do%>
      <%=post_comment.user.name%>
     <%end%>
     </td>
     <td><%=post_comment.comment%></td>
     <td>
     <% if post_comment.user==current_user%>
-    <%=link_to "削除" ,post_post_comment_path(@post, post_comment),method: :delete,class: 'btn-sm btn-danger'%>
+    <%= link_to "削除", post_post_comment_path(@post, post_comment), method: :delete, class: ' btn btn-sm btn-danger' %>
     <%end%>
     </td>
     </tr>
