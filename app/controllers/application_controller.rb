@@ -1,5 +1,5 @@
 class ApplicationController < ActionController::Base
-  before_action :authenticate_user!, except: [:top, :about]
+  before_action :authenticate_user!, except: [:top, :about],unless: :admin_user_signed_in?
   before_action :configure_permitted_parameters, if: :devise_controller?
 
 
@@ -25,5 +25,4 @@ class ApplicationController < ActionController::Base
       root_path 
     end
   end
-
 end
