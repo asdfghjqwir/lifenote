@@ -14,7 +14,7 @@ class DashboardController < ApplicationController
 
   def destroy
     @user = User.find(params[:id])
-    if current_admin_user.admin?
+    if   current_admin_user
       if @user.destroy
         flash[:notice] = "ユーザーを削除しました。"
       else
@@ -26,5 +26,5 @@ class DashboardController < ApplicationController
     redirect_to admin_dashboard_index_path
   end
 end
-
 end
+

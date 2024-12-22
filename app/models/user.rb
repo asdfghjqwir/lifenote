@@ -59,5 +59,9 @@ class User < ApplicationRecord
   def feed
     Post.where(user_id: followings.pluck(:id))
   end
+
+  def admin?
+    false
+  end
  
 end
