@@ -1,0 +1,10 @@
+<h1 class="mb-4">ユーザー詳細</h1>
+<div class="container">
+  <p> 名前: <%= @user.name %></p>
+  <p> メールアドレス: <%= @user.email %></p>
+  <p> 紹介文: <%= @user.introduction %></p>
+  <div class="mb-3">
+    <%= link_to '削除する', user_path(@user), method: :delete, data: { confirm: "本当に退会させますか？" }, class: 'btn btn-danger' %>
+    <%= link_to '戻る', admin_dashboard_index_path, class: 'btn btn-secondary' %>
+  </div>
+</div>

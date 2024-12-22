@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container　mt-4">
 <% if @user.errors.any? %>
 <div class="alert alert-danger">
   <%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:
@@ -10,16 +10,65 @@
 </div>
 <% end %>
 
-  <%=render 'layouts/list',user: @user, post:Post.new%>
+
   
-  <div class="mb-4">
-    <h2>あなたの投稿</h2>
+  <div class="mb-5">
+<h2 class="mb-4"><%=@user.name%>のプロフィール</h2>
+<table class="table table-striped table-hover">
+   <thead>
+  <tr>
+  <th>画像</th>
+  <th>名前</th>
+  <th>一言</th>
+  <th></th>
+  </tr>
+   </thead>
+  <tbody>
+  <tr>
+  <td><%=image_tag @user.get_profile_image(50,50)%></td>
+  <td><%=@user.name%></td>
+  <td><%=@user.introduction%></td>
+  <td>
+  <%=link_to '編集',edit_user_path(@user),class: 'btn  btn-primary btn-sm mb-2 d-block'%>
+  <% if current_user != @user%>
+  <% if current_user.following?(@user) %>
+  <%=link_to 'フォロー解除',user_relationships_path(@user.id),method: :delete ,class: 'btn btn-info btn-sm mb-2 d-block' %>
+  <% else%>
+  <%=link_to 'フォロー',user_relationships_path(@user.id),method: :post, class: 'btn btn-success btn-sm mb-2 d-block' %>
+  <%end%>
+  <%end%>
+  </td>
+  </tr>
+  </tbody>
+  </table>
+</div>
+</div>
+
+<div class="mb-5">
+<h2 class="mb-3">新規投稿</h2>
+<%=form_with model: @post,local: true do |f|%>
+<div class="mb-3">
+ <%=f.label :title,"タイトル", class: 'form-label'%>
+ <%=f.text_field :title,  class: 'form-control'%>
+</div>
+<div class="mb-3">
+  <%=f.label :content,"内容",class: 'form-label'%>
+  <%=f.text_area :content, class: 'form-control'%>
+</div>
+<div class="mb-3">
+  <%=f.submit '投稿',class: 'btn btn-primary'%>
+</div>
+<%end%>
+
+
+  <div class="mb-5">
+    <h2 class="mb-3"><%=@user.name%>の投稿</h2>
     <table class="table table-striped table-hover"> 
       <thead>
         <tr>
-          <th></th>
-          <th></th>
-          <th></th>
+          <th>画像</th>
+          <th>タイトル</th>
+          <th>内容</th>
           <th></th>
         </tr>
       </thead>
@@ -27,9 +76,9 @@
         <% @posts.each do |post|%>
         <tr>
           <td><%=image_tag post.user.get_profile_image(50,50)%></td>
-          <td><%=post.title%></td>
-          <td><%=post.content%></td>
-            <td><%=link_to '詳細へ',post_path(post),class: 'btn btn-sm btn-secondary'%></td>
+          <td><%= post.title %></td>
+          <td><%= post.content %></td>
+            <td><%=link_to '詳細へ',post_path(post),class: 'btn  btn-secondary btn-sm mb-2 d-block'%></td>
         </tr>
         <%end%>
       </tbody>

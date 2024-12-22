@@ -1,0 +1,27 @@
+<div class="container mt-5">
+<h1 class="mb-3">いいねした投稿</h1>
+<% if @favorite_posts.any? %>
+<table class="table table-striped table-hover">
+<thead>
+<tr>
+<th>名前</th>
+<th>タイトル</th>
+<th>内容</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<% @favorite_posts.each do |post| %>
+  <tr>
+  <td><%=post.user.name%></td>
+  <td><%=post.title%></td>
+  <td><%=post.content%></td>
+  <td><%=link_to '詳細へ',post_path(post),class: 'btn btn-secondary btn-sm mb-2 d-block'%></td>
+ </tr>
+  <%end%>
+  </tbody>
+  </table>
+  <% else%>
+  <p>いいねした投稿が現在ありません。</p>
+  <%end%>
+  </div>

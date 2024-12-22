@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container mt-4">
 <% if @post.errors.any?%>
   <div class="alert alert-danger">
     <h2><%= pluralize(@post.errors.count, "error") %> prohibited this book from being saved:</h2>
@@ -7,18 +7,20 @@
         <li><%= message %></li>
       <% end %>
     </ul>
+    </div>
     <%end%>
+
   
-  <%=render 'layouts/list',user: @post.user,post: Post.new%>
-  
-  <div class="mt-4">
-    <h2>投稿の詳細</h2>
-    <table class="table table-striped">
+  <div class="mb-5">
+    <h2 class="mb-4">投稿の詳細</h2>
+    <div class="table-responsive">
+    <table class="table table-striped table-hover ">
     <thead>
       <tr>
-      <th></th>
-      <th></th>
-      <th></th>
+      <th>画像</th>
+      <th>名前</th>
+      <th>タイトル</th>
+      <th>内容</th>
       <th></th>
       </tr>
       </thead>
@@ -28,18 +30,35 @@
         <td><%=@post.user.name%></td>
         <td><%=@post.title%></td>
         <td><%=@post.content%></td>
-        <% if @post.user==current_user%>
         <td>
-        <%=link_to '編集',edit_post_path(@post),class: 'btn btn-sm btn-secondary'%>
-        </td>
+        <% if @post.user==current_user%>
+        <%=link_to '編集',edit_post_path(@post),class: 'btn  btn-secondary btn-sm mb-2 d-block'%>
         <%end%>
+        <% if current_user != @post.user%>
+        <% if current_user.following?(@post.user) %>
+        <%=link_to 'フォロー解除',user_relationships_path(@post.user.id),method: :delete, class: 'btn btn-info btn-sm mb-2 d-block' %>
+        <% else%>
+        <%=link_to 'フォロー',user_relationships_path(@post.user.id),method: :post, class: 'btn btn-success btn-sm mb-2 d-block' %>
+        <%end%>
+        <%end%>
+        <% unless @post.user==current_user%>
+       <% if @post.favorited_by?(current_user)%>
+       <%=link_to 'いいね解除',post_favorites_path(@post),method: :delete, class: 'btn btn-danger btn-sm mb-2 d-block'%>
+       <%else%>
+       <%=link_to 'いいね',post_favorites_path(@post),method: :post, class: 'btn btn-primary btn-sm mb-2 d-block'%>
+      <%end%>
+      <%end%>
+      <p class="mt-2">いいね数: <%=@post.favorites.count%></p>
+      </td>
       </tr>
       </tbody>
     </table>
-
+   </div>
+   </div>
    
-
-    <h3>コメントを投稿する</h3>
+     
+   <div class="mb-5">
+    <h3 class="mb-3">コメントを投稿する</h3>
     <%=form_with(model: [@post,PostComment.new],local:true) do |f|%>
       <div class="mb-3">
       <%=f.text_area :comment,rows:'5',placeholder:"コメントをここに",class: 'form-control'%>
@@ -48,13 +67,18 @@
       <%=f.submit "送信",class: 'btn btn-primary'%>
       </div>
       <%end%>
+      </div>
 
-      <h3>コメントした人</h3> 
-<table class="table table-striped">
+
+   <div class="mb-5">
+   <h3 class="mb-4">コメントした人</h3> 
+   <div class="table-responsive">
+  <table class="table table-striped">
     <thead>
     <tr>
-    <th></th>
-    <th></th>
+    <th>画像</th>
+    <th>名前</th>
+    <th>コメント</th>
     <th></th>
     </tr>
    </thead>
@@ -69,7 +93,7 @@
     <td><%=post_comment.comment%></td>
     <td>
     <% if post_comment.user==current_user%>
-    <%= link_to "削除", post_post_comment_path(@post, post_comment), method: :delete, class: ' btn btn-sm btn-danger' %>
+    <%= link_to "削除", post_post_comment_path(@post, post_comment), method: :delete, class: ' btn  btn-danger btn-sm' %>
     <%end%>
     </td>
     </tr>
@@ -78,7 +102,7 @@
     </table>
   </div>
 </div>
-
+</div>
 
 
 
