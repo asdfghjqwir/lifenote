@@ -25,6 +25,6 @@ Rails.application.routes.draw do
   }
   
   namespace :admin  do
-    resources :dashboard, only: [:index, :show] 
+    resources :dashboard, only: [:index, :show, :destroy] 
   end
 end
