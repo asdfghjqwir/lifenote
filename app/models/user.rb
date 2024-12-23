@@ -60,8 +60,5 @@ class User < ApplicationRecord
     Post.where(user_id: followings.pluck(:id))
   end
 
-  def admin?
-    false
-  end
  
 end
