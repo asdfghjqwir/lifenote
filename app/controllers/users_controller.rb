@@ -53,7 +53,7 @@ end
 
   def ensure_correct_user
     @user = User.find(params[:id])
-    unless @user == current_user || current_user.admin?
+    unless @user == current_user 
       flash[:alert] = "他のユーザーの操作は許可されていません。"
       redirect_to user_path(current_user)
     end
