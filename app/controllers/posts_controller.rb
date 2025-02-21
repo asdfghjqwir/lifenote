@@ -1,6 +1,6 @@
 class PostsController < ApplicationController
   before_action :authenticate_user!
-  before_action :ensure_correct_user, only: [:edit, :update, :destroy]
+  before_action :ensure_correct_user, only: [:edit, :update,:destroy ]
 
   def index
     @posts = current_user.feed
@@ -49,12 +49,17 @@ end
   def destroy
     @post = Post.find(params[:id])
     if @post.user == current_user
-      @post.destroy
+    if @post.destroy
       flash[:notice] = "投稿が削除されました。"
+      redirect_to posts_path
     else
-      flash[:alert] = "ユーザーの削除に失敗しました"
+      flash[:alert] = "投稿の削除に失敗しました。"
+      redirect_to posts_path
     end
+  else
+    flash[:alert] = "他のユーザーの投稿は削除できません。"
     redirect_to posts_path
+   end
   end
 
   private

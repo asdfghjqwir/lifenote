@@ -57,7 +57,7 @@ class User < ApplicationRecord
 
 
   def feed
-    Post.where(user_id: followings.pluck(:id))
+    Post.where(user_id: followings.pluck(:id)+ [id])
   end
 
  
